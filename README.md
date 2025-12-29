@@ -40,7 +40,7 @@ All commands start with `Ctrl-a` (not the default `Ctrl-b`).
 | Keys | Action |
 |------|--------|
 | `Ctrl-a s` | List/switch sessions |
-| `Ctrl-a Tab` | Toggle last session |
+| `Ctrl-a \` | Toggle last session |
 | `Ctrl-a (` | Previous session |
 | `Ctrl-a )` | Next session (cycle) |
 | `Ctrl-a $` | Rename session |
