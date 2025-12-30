@@ -9,9 +9,14 @@ if [ -f ~/.tmux.conf ]; then
     cp ~/.tmux.conf ~/.tmux.conf.bak
 fi
 
-# Copy config
+# Copy configs
 cp tmux.conf ~/.tmux.conf
 echo "Copied tmux.conf to ~/.tmux.conf"
+
+if [ -f gitmux.conf ]; then
+    cp gitmux.conf ~/.gitmux.conf
+    echo "Copied gitmux.conf to ~/.gitmux.conf"
+fi
 
 # Install TPM if not present
 if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -22,6 +27,17 @@ fi
 # Install plugins
 echo "Installing tmux plugins..."
 ~/.tmux/plugins/tpm/bin/install_plugins
+
+# Install gitmux if not present
+if ! command -v gitmux &> /dev/null; then
+    echo "Installing gitmux..."
+    mkdir -p ~/.local/bin
+    curl -sL https://github.com/arl/gitmux/releases/download/v0.11.5/gitmux_v0.11.5_linux_amd64.tar.gz | tar xz -C ~/.local/bin
+    if ! grep -q '.local/bin' ~/.bashrc 2>/dev/null; then
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+    fi
+    echo "Installed gitmux to ~/.local/bin"
+fi
 
 # Install direnv if not present
 if ! command -v direnv &> /dev/null; then
