@@ -9,13 +9,22 @@ if [ -f ~/.tmux.conf ]; then
     cp ~/.tmux.conf ~/.tmux.conf.bak
 fi
 
-# Copy configs
+# Copy tmux config
 cp tmux.conf ~/.tmux.conf
 echo "Copied tmux.conf to ~/.tmux.conf"
 
 if [ -f gitmux.conf ]; then
     cp gitmux.conf ~/.gitmux.conf
     echo "Copied gitmux.conf to ~/.gitmux.conf"
+fi
+
+# Copy nvim config
+if [ -d nvim ]; then
+    mkdir -p ~/.config/nvim
+    cp -r nvim/* ~/.config/nvim/
+    cp nvim/.gitignore ~/.config/nvim/ 2>/dev/null
+    cp nvim/.neoconf.json ~/.config/nvim/ 2>/dev/null
+    echo "Copied nvim config to ~/.config/nvim"
 fi
 
 # Install TPM if not present
