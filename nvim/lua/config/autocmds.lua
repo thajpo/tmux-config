@@ -8,7 +8,7 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- Auto-save on focus lost
-vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
+vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave", "InsertLeave" }, {
   group = vim.api.nvim_create_augroup("autosave", { clear = true }),
   callback = function(event)
     local buf = event.buf
