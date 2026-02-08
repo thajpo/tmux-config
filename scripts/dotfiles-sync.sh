@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="/home/j/dotfiles"
-LOCK_FILE="/tmp/dotfiles-sync.lock"
+REPO_DIR="$HOME/dotfiles"
+LOCK_DIR="/tmp/dotfiles-sync.lockdir"
 
-exec 9>"$LOCK_FILE"
-if ! flock -n 9; then
+if ! mkdir "$LOCK_DIR" 2>/dev/null; then
   exit 0
 fi
+trap 'rmdir "$LOCK_DIR"' EXIT
 
 cd "$REPO_DIR"
 
