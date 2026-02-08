@@ -1,23 +1,13 @@
 # PR Review Checklist (Findings-First)
 
-Order findings by severity.
-
 1. Correctness regressions
-- behavior mismatch vs spec
-- edge-case breakage
-
-2. Contract risk
-- API/schema/event/backward-compat drift (if applicable)
-
+2. Contract drift vs spec
 3. Test quality
 - missing fail-first coverage
 - missing regression coverage
-- flaky/weak assertions
-
+- suspicious test weakening/skips
 4. Scope control
 - unrelated refactors
-- forbidden file touch
-
+- out-of-scope file touches
 5. Evidence quality
-- fail-first and pass outputs present and credible
-- runner/environment contract followed
+- fail-first and pass outputs are present and credible

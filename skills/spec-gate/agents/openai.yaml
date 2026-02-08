@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Gate"
+  short_description: "Mandatory Q&A gate for Brainstormed to Specd ready"
+  default_prompt: "Use spec-gate to interrogate a brainstormed item and produce a complete ready Specd contract."

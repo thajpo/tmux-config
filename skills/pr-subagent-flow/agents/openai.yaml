@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Subagent Flow"
+  short_description: "Internal chained dispatch test and review orchestration"
+  default_prompt: "Use pr-subagent-flow to run ready Specd execution via dispatch, test guard, and PR review gates."

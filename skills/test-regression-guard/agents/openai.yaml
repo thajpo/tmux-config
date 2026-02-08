@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Regression Guard"
+  short_description: "Independent checks for missing tests and test gaming"
+  default_prompt: "Use test-regression-guard to validate fail-first/pass evidence and detect missing or weakened tests."

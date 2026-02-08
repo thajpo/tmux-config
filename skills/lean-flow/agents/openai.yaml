@@ -1,4 +1,4 @@
 interface:
   display_name: "Lean Flow"
-  short_description: "Single-file planning flow for focused implementation"
-  default_prompt: "Use lean-flow to manage current.md with Brainstormed, Specd, and Beliefs sections."
+  short_description: "Plan in current files and route to execution chain"
+  default_prompt: "Use lean-flow to manage Brainstormed->Specd and implement a ready spec via internal chained skills."

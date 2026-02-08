@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Review Gate"
+  short_description: "Findings-first PR review with evidence and severity"
+  default_prompt: "Use pr-review-gate to review a dispatched PR with findings first and explicit file-line evidence."
