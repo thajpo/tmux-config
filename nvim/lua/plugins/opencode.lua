@@ -32,6 +32,7 @@ return {
   },
   config = function()
     vim.g.opencode_opts = vim.g.opencode_opts or {}
+    vim.g.opencode_opts.port = 3200
     vim.o.autoread = true
   end,
 }
