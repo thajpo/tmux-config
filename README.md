@@ -10,6 +10,129 @@ cd dotfiles
 ./install.sh
 ```
 
+## Shared CLI Skills + Dotfiles Auto-Sync
+
+This repo can track shared skills for both Codex and OpenCode by using one
+canonical directory (`~/dotfiles/skills`) and symlinking all CLI skill paths to
+`~/.skills`:
+
+- `git pull --rebase --autostash origin master`
+- commit/push only when there are local changes
+
+### Linux (systemd user timer)
+
+Symlink setup:
+
+```bash
+mkdir -p ~/dotfiles/skills
+ln -sfn ~/dotfiles/skills ~/.skills
+ln -sfn ~/.skills ~/.codex/skills
+ln -sfn ~/.skills ~/.config/opencode/skills
+ln -sfn ~/dotfiles ~/.dotfiles
+```
+
+Optional drift repair (recommended):
+
+```bash
+~/dotfiles/scripts/skills-doctor.sh
+```
+
+Create sync script:
+
+```bash
+mkdir -p ~/dotfiles/scripts
+cat > ~/dotfiles/scripts/dotfiles-sync.sh <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_DIR="$HOME/dotfiles"
+LOCK_FILE="/tmp/dotfiles-sync.lock"
+
+exec 9>"$LOCK_FILE"
+if ! flock -n 9; then
+  exit 0
+fi
+
+cd "$REPO_DIR"
+git pull --rebase --autostash origin master
+
+if [ -n "$(git status --porcelain)" ]; then
+  git add -A
+  git commit -m "chore(dotfiles): automated sync $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+  git push origin master
+fi
+EOF
+chmod +x ~/dotfiles/scripts/dotfiles-sync.sh
+```
+
+Create and enable timer (every 2 hours):
+
+```bash
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/dotfiles-sync.service <<'EOF'
+[Unit]
+Description=Dotfiles auto sync (pull, commit, push)
+
+[Service]
+Type=oneshot
+ExecStart=%h/dotfiles/scripts/dotfiles-sync.sh
+EOF
+
+cat > ~/.config/systemd/user/dotfiles-sync.timer <<'EOF'
+[Unit]
+Description=Run dotfiles auto sync every 2 hours
+
+[Timer]
+OnBootSec=10m
+OnUnitActiveSec=2h
+Persistent=true
+Unit=dotfiles-sync.service
+
+[Install]
+WantedBy=timers.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable --now dotfiles-sync.timer
+```
+
+### macOS (launchd)
+
+Use the same symlink setup as above, then create:
+
+```bash
+mkdir -p ~/Library/LaunchAgents
+cat > ~/Library/LaunchAgents/com.user.dotfiles-sync.plist <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.user.dotfiles-sync</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>-lc</string>
+      <string>$HOME/dotfiles/scripts/dotfiles-sync.sh</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>7200</integer>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/tmp/dotfiles-sync.out</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/dotfiles-sync.err</string>
+  </dict>
+</plist>
+EOF
+
+launchctl unload ~/Library/LaunchAgents/com.user.dotfiles-sync.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.user.dotfiles-sync.plist
+```
+
+Note: macOS may not have `flock` by default. If needed, install `flock` (`brew install flock`) or remove the lock block from the script.
+
 ## What's Included
 
 ### Tmux
