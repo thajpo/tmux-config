@@ -26,6 +26,7 @@ Use whenever execution cannot continue without a decision.
 - Relay escalation question verbatim.
 - Hard-pause; do not auto-retry or broaden scope.
 - Resume only after explicit user decision.
+- Do not translate blocker severity into "optional" language; preserve mandatory workflow gating.
 
 ## Failure Rule
 If a subagent asks a decision question and exits before answer, mark run as failed dispatch.

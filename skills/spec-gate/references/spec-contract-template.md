@@ -1,6 +1,22 @@
 # Spec Contract Template
 
 - status: ready|in_progress|review
+- interrogation transcript:
+  - q1:
+  - a1:
+  - q2:
+  - a2:
+  - q3:
+  - a3:
+  - q4:
+  - a4:
+  - q5:
+  - a5:
+  - q6:
+  - a6:
+  - q7:
+  - a7:
+- blockers:
 - behavior change:
 - files to touch:
 - fail-first tests:

@@ -8,6 +8,10 @@ description: "Run findings-first PR review for dispatched specs with severity or
 ## Goal
 Produce a strict, reviewer-friendly findings package before merge.
 
+## Accountability Rule
+- Enforce spec adherence over convenience.
+- If scope drift, missing tests, or contradictory evidence is found, mark review `blocked` and require escalation.
+
 ## Inputs
 - Spec contract.
 - PR diff and changed files.

@@ -8,3 +8,7 @@ Ask and resolve these before promotion:
 5. What regression tests are required?
 6. What risks and rollback triggers exist?
 7. Does this overlap another item? Merge or split?
+
+Execution rule:
+- Record explicit user answers for each question in-session.
+- If any answer is unknown or disputed, do not promote to `Specd: ready`.

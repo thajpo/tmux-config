@@ -8,6 +8,11 @@ description: "Internal orchestration skill for lean-flow. Use when executing a r
 ## Goal
 Run a strict execution pipeline for a `Specd: ready` item without parent-session coding.
 
+## Accountability Rule
+- Accept plain-language implementation intent from the parent coordinator.
+- Enforce preconditions strictly; never run dispatch when spec status is not `ready`.
+- When blocked, return the exact missing gate and required next step instead of attempting partial execution.
+
 ## Chain Order
 1. `$subagent-dispatch`
 - Spawn separate implementation subagent process/session.

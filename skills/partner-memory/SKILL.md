@@ -30,6 +30,7 @@ Do not silently write persistent memory.
 - Workflow preferences (process shape, preferred artifacts, review style)
 - Communication preferences (format, brevity, evidence style)
 - Clarification/pushback expectations (e.g., mandatory Q&A before spec promotion)
+- Accountability preference (user sets workflow direction; assistant enforces gates and prerequisites)
 - Overlap handling preferences (merge/split rules across brainstorm/spec items)
 - Repository beliefs (what should be true about the system)
 - Anti-patterns/pain points to avoid

@@ -8,6 +8,10 @@ description: "Run independent test and regression validation for dispatched PRs,
 ## Goal
 Catch both accidental regression risk and deliberate test-quality degradation.
 
+## Accountability Rule
+- Treat missing or weak evidence as a workflow failure, not a soft warning.
+- If required fail-first/pass/regression evidence is absent, return `blocked` with the exact evidence gap.
+
 ## Preferred Execution Model
 - Run in a separate verifier subagent from the implementation subagent.
 

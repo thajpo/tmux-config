@@ -12,6 +12,10 @@ Start and monitor implementation subagents safely and transparently.
 - Spec item is `Specd: ready`.
 - Spec contract is complete.
 
+## Accountability Rule
+- Do not launch from inferred readiness or user urgency.
+- If preconditions fail, return a blocker packet that names the missing workflow gate.
+
 ## Procedure
 1. Build dispatch packet from spec contract.
 2. Prepare isolated branch/worktree.
