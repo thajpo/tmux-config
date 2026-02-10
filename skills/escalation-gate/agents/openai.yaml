@@ -1,4 +1,0 @@
-interface:
-  display_name: "Escalation Gate"
-  short_description: "Standard blocker packets and hard pause behavior"
-  default_prompt: "Use escalation-gate to format blockers and pause until explicit user decision."

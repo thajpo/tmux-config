@@ -1,4 +1,0 @@
-interface:
-  display_name: "Subagent Dispatch"
-  short_description: "Spawn implementation subagents with strict contracts"
-  default_prompt: "Use subagent-dispatch to launch and monitor a separate implementation subagent for a ready Specd item."
