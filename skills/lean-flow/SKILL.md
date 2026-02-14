@@ -37,6 +37,7 @@ Do not create extra planning files unless explicitly requested.
 - Assistant converts selected brainstorm items into concrete specs.
 - User gives feedback in chat; assistant updates spec text.
 - No implementation.
+- Items in `Brainstormed`/`Specd` may be merged, split, or reorganized before `ready` approval.
 - Promotion is a move, not a copy: once promoted to `Specd`, remove the item from `Brainstormed` in the same edit.
 - Do not keep duplicate entries, placeholders, or "promoted" stubs in `Brainstormed`.
 
@@ -44,6 +45,14 @@ Do not create extra planning files unless explicitly requested.
 - Requires manual user approval evidence in markdown file.
 - Chat approval alone is not sufficient.
 - Approval evidence must be present under the item before status becomes `ready`.
+- `ready` means "ready for GitHub issue creation and external implementation pickup."
+- Do not treat `ready` as permission for direct in-session implementation by default.
+
+4. GitHub Issue (execution handoff)
+- Create exactly one GitHub issue per ready item before implementation starts.
+- Do not batch multiple ready items into one issue.
+- Include spec scope, acceptance criteria, and issue link back to planning item.
+- External implementation agent may pick up open issues and open PRs.
 
 ## Manual Approval Evidence (required)
 Before marking `Specd: ready`, planning file must include:
@@ -89,7 +98,7 @@ Record overlap decision in the spec item.
 
 3. Implement
 - Do not implement from `lean-flow`.
-- Prepare handoff packet for separate implementation session unless user explicitly requests in-session implementation.
+- Ensure GitHub issue exists for the ready item, then prepare handoff packet for separate implementation session unless user explicitly requests in-session implementation.
 
 4. Escalations
 - Relay decision questions verbatim.
@@ -99,5 +108,6 @@ Record overlap decision in the spec item.
 - Promotion hygiene: `Brainstormed` and `Specd` must be mutually exclusive for a given item title.
 - Never implement from `Brainstormed`.
 - Never mark `ready` from chat-only approval.
+- Never start implementation for a ready item without a linked GitHub issue unless the user explicitly overrides.
 - Never prune `Specd` items before PR merge.
 - Keep current file(s) compact; remove stale text after merge.

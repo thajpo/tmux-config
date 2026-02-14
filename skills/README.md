@@ -5,19 +5,19 @@
 - Preferred flow: `Use $git-cleanup draft-then-ship`.
 - If push should be skipped for a specific case, explicitly state that in the request.
 
-## Active Workflow Skills (v2)
-- `project-os`: planning authority (`current.md`), Brainstormed Q&A, Specd promotion, approval TTL/invalidation, final merge/prune decisions.
-- `implementer`: execution-only worker for one approved Specd item.
-- `quality-gate`: independent review + regression verdict before merge.
+## Active Workflow Skills (current)
+- `lean-flow`: canonical planning workflow (`Brainstormed -> Specd (draft) -> Ready`), with explicit readiness evidence in markdown.
+- `spec-gate`: clarification/readiness checks and overlap analysis before `Ready`.
+- `subagent-dispatch` + `pr-subagent-flow`: optional execution/review orchestration when explicitly requested.
 
 ## Approval Policy
-- User message `yes` after Q&A is treated as approval signature.
-- Agent records approval metadata in `Specd` (no manual user file edits needed).
-- Approval expires after 5 days.
-- Dependency changes always invalidate approval.
+- `Ready` requires explicit approval evidence in markdown (not chat-only approval).
+- Before `Ready`, items in `Brainstormed`/`Specd` can be merged/split/reorganized.
+- After `Ready`, each item maps to exactly one GitHub issue.
+- Implementation should not start without a linked GitHub issue unless explicitly overridden.
 
 ## Merge Logging Policy
-- On merge, `project-os` records the completed feature in `Institutional Knowledge` with commit SHA + commit subject before pruning the `Specd` item.
+- Keep merged-item logging lightweight in planning files; prune merged `Specd` items after PR merge.
 
 ## Why
 - Keeps Linux and Mac in sync.
