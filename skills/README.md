@@ -14,7 +14,6 @@
 - `pr-scope-guard`: enforce issue-approved file touch boundaries.
 - `ci-baseline`: ensure baseline PR checks (`lint`, `test`).
 - `pr-iterate`: ingest full PR feedback + iterate with required post-push updates.
-- `pr-subagent-flow`: compatibility wrapper that routes to the modern PR stack.
 
 ## Approval Policy
 - `Ready` requires explicit approval evidence in markdown (not chat-only approval).
