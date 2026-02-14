@@ -5,6 +5,10 @@ description: "Manage one-issue-per-worktree lifecycle for branch isolation, PR t
 
 # Worktree Manager
 
+## Usage
+- Internal helper skill.
+- Normally invoked by `$pr-iterate`, not directly by user.
+
 ## Goal
 Enforce isolated execution: one approved issue maps to one branch, one worktree, one PR.
 

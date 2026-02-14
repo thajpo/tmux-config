@@ -5,6 +5,10 @@ description: "Create one GitHub issue from one ready Specd contract, preserve th
 
 # Issue Handoff
 
+## Usage
+- Internal helper skill.
+- Normally invoked by `$pr-iterate`, not directly by user.
+
 ## Goal
 Convert a single `Specd: ready` item into an executable GitHub issue with no contract drift.
 

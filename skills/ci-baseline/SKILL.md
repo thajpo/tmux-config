@@ -5,6 +5,10 @@ description: "Set up and enforce baseline GitHub PR checks (lint + test) plus li
 
 # CI Baseline
 
+## Usage
+- Internal helper skill.
+- Normally invoked by `$repo-init` and verified by `$pr-iterate`.
+
 ## Goal
 Ensure every repo has minimum PR automation quality gates with predictable check names.
 

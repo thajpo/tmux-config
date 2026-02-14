@@ -5,6 +5,10 @@ description: "Enforce issue-approved file touch scope in PRs and block out-of-sc
 
 # PR Scope Guard
 
+## Usage
+- Internal helper skill.
+- Normally invoked by `$pr-iterate`, not directly by user.
+
 ## Goal
 Prevent silent scope creep by enforcing file-touch boundaries from the approved issue/spec.
 

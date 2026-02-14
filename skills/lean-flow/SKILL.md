@@ -1,6 +1,6 @@
 ---
 name: lean-flow
-description: "Chat-first planning workflow for Brainstormed -> Specd -> ready -> issue in current.md, with strict markdown approval evidence."
+description: "Chat-first planning workflow for Brainstormed -> Specd -> ready in current.md, with strict markdown approval evidence before execution."
 ---
 
 # Lean Flow
@@ -30,16 +30,7 @@ Keep planning explicit and minimal, then hand off to GitHub issue/PR execution w
 3. Ready
 - Requires full schema and markdown approval evidence.
 - Chat-only approval is never enough.
-
-4. Issue
-- Create exactly one GitHub issue per ready item before implementation.
-- Issue body must include full approved spec contract.
-
-5. Tracker compaction
-- Replace full `Specd` body with:
-  - `<id/title> | status: issued | issue: <url-or-#>`
-- Do not track PR state in `current.md`.
-- Remove tracker line after PR merge.
+- Execution starts by invoking `$pr-iterate` on the ready item.
 
 ## Spec Contract Schema (required before `ready`)
 - `title`
@@ -68,10 +59,8 @@ Keep planning explicit and minimal, then hand off to GitHub issue/PR execution w
 
 ## Routing
 - Use `$spec-gate` for interrogation/readiness checks.
-- Use `$issue-handoff` to create issue + compact tracker line.
-- Use `$worktree-manager` for branch/worktree lifecycle.
-- Use `$pr-iterate` for PR feedback loop.
-- Use `$pr-scope-guard` for out-of-scope file detection.
+- User-facing execution handoff is `$pr-iterate`.
+- `$pr-iterate` handles issue creation/compaction, worktree lifecycle, scope guard, and PR feedback loop via internal helpers.
 
 ## Guardrails
 - Never implement from `Brainstormed`.

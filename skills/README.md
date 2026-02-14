@@ -6,14 +6,16 @@
 - If push should be skipped for a specific case, explicitly state that in the request.
 
 ## Active Workflow Skills (current)
-- `repo-init`: bootstrap repo planning + issue/PR templates + baseline CI checks.
-- `lean-flow`: planning workflow (`Brainstormed -> Specd -> ready -> issue`).
-- `spec-gate`: interrogation + readiness checks for strict spec contracts.
-- `issue-handoff`: create one issue from one ready spec and compact tracker state.
-- `worktree-manager`: one issue -> one branch -> one worktree -> one PR lifecycle.
-- `pr-scope-guard`: enforce issue-approved file touch boundaries.
-- `ci-baseline`: ensure baseline PR checks (`lint`, `test`).
-- `pr-iterate`: ingest full PR feedback + iterate with required post-push updates.
+- User-facing:
+  - `repo-init`: one-time repo bootstrap (planning + templates + baseline CI).
+  - `lean-flow`: planning workflow (`Brainstormed -> Specd -> ready`).
+  - `pr-iterate`: execution workflow (`ready/issued -> issue/PR loop -> merge-ready`).
+- Internal helpers (auto-used by `pr-iterate`/`repo-init`):
+  - `spec-gate`
+  - `issue-handoff`
+  - `worktree-manager`
+  - `pr-scope-guard`
+  - `ci-baseline`
 
 ## Approval Policy
 - `Ready` requires explicit approval evidence in markdown (not chat-only approval).
@@ -25,6 +27,12 @@
 
 ## Merge Logging Policy
 - Keep merged-item logging lightweight in planning files; prune merged `Specd` items after PR merge.
+
+## Command Surface
+Use only these in normal flow:
+1. `Use $repo-init` (once per repo)
+2. `Use $lean-flow ...` (planning to `ready`)
+3. `Use $pr-iterate "<spec-id-or-pr#>"` (issue + PR + feedback loop)
 
 ## Why
 - Keeps Linux and Mac in sync.
