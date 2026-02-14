@@ -9,6 +9,7 @@
 - User-facing:
   - `repo-init`: one-time repo bootstrap (planning + templates + baseline CI).
   - `lean-flow`: planning workflow (`Brainstormed -> Specd -> ready`).
+  - `pr-status`: open-PR board (`function + turn owner + priority + current.md linkage`).
   - `pr-iterate`: execution workflow (`ready/issued -> issue/PR loop -> merge-ready`).
 - Internal helpers (auto-used by `pr-iterate`/`repo-init`):
   - `spec-gate`
@@ -33,7 +34,8 @@
 Use only these in normal flow:
 1. `Use $repo-init` (once per repo)
 2. `Use $lean-flow ...` (planning to `ready`)
-3. `Use $pr-iterate "<spec-id-or-pr#>"` (issue + PR + feedback loop)
+3. `Use $pr-status` (open PR board with turn ownership + priorities)
+4. `Use $pr-iterate "<spec-id-or-pr#>"` (issue + PR + feedback loop)
    - `$pr-iterate` performs commit + push updates by default; you review and decide merge.
 
 ## Why
