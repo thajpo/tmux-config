@@ -1,7 +1,14 @@
-# Spec Contract Template
+# Issue Template (Spec Contract)
 
-- title:
-- status: draft|in_progress|ready
+Use for `.github/ISSUE_TEMPLATE/spec-contract.md`:
+
+```md
+## Context
+- planning file:
+- spec id/title:
+- status: ready
+
+## Contract
 - user intent:
 - behavior change:
 - surfaces touched:
@@ -17,6 +24,4 @@
   - approval date:
   - explicit scope approved:
   - unresolved blockers: none
-
-## Issue Handoff Rule
-- Issue body must embed this contract verbatim once status is `ready`.
+```

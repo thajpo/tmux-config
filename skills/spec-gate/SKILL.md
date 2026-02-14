@@ -19,29 +19,35 @@ Convert a brainstorm into a concrete spec draft, then validate it is truly ready
 - User is approver, not form filler.
 
 ## Required Spec Contract Fields
-1. Behavior change
+1. User intent
+- Why this change is needed now.
+
+2. Behavior change
 - Explicit contract delta.
 
-2. Surfaces touched
+3. Surfaces touched
 - Files/modules/functions expected to change.
 
-3. Estimated diff size
+4. File touch scope
+- Explicit allowed files/globs for implementation.
+
+5. Estimated diff size
 - S/M/L with short rationale.
 
-4. Acceptance tests
+6. Acceptance tests
 - Fail-first test(s).
 - Regression scope.
 
-5. Edge cases
+7. Edge cases
 - At least one concrete edge condition.
 
-6. Non-goals
+8. Non-goals
 - Explicitly excluded surfaces.
 
-7. Risk and rollback
+9. Risk and rollback
 - Main risks and rollback trigger.
 
-8. Overlap analysis
+10. Overlap analysis
 - Shared surfaces with other specs.
 - Merge-vs-split recommendation and decision.
 
@@ -55,6 +61,7 @@ Mark `Specd: ready` only when:
 For issue handoff:
 - GitHub issue body must include the full approved spec contract verbatim.
 - Use the standardized issue template from `references/spec-contract-template.md`.
+- File touch scope in issue must match approved spec scope at handoff.
 
 Manual approval evidence must include:
 - approver identity,

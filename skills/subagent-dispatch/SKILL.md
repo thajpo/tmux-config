@@ -1,42 +1,23 @@
 ---
 name: subagent-dispatch
-description: "Launch a separate implementation subagent from a ready spec with no scope decisions and verified launch evidence."
+description: "Deprecated compatibility skill. Use worktree-manager + pr-iterate stack for issue-scoped PR execution."
 ---
 
 # Subagent Dispatch
 
-## Goal
-Start and monitor implementation subagents safely and transparently.
+## Status
+- Deprecated for this workflow.
+- Do not require separate subagent sessions.
+- Preferred path is issue-scoped implementation in one isolated worktree.
 
-## Preconditions
-- Spec item is `Specd: ready`.
-- Manual approval evidence exists in markdown.
-- Spec contract is complete.
-
-## Procedure
-1. Build dispatch packet from spec contract.
-2. Prepare isolated branch/worktree.
-3. Spawn separate subagent process/session.
-4. Record launch evidence:
-- runner,
-- pid/session id,
-- branch/worktree,
-- start timestamp.
-5. Require phase reporting:
-- `preflight`, `fail-first`, `implementation`, `retest`, `report`.
-
-## Hard Rules
-- Parent/coordinator must not implement in its own session.
-- Subagent must not make product/scope decisions.
-- Subagent must escalate on ambiguity, out-of-scope file touch, or command blockers.
-- Use `uv` runner where repo is configured for it.
-
-## Required Return
-- changed files
-- fail-first output
-- pass output
-- residual risks/open questions
-- blocker packet (if blocked)
+## Use Instead
+1. `$worktree-manager` to prepare isolated branch/worktree.
+2. `$pr-scope-guard` to enforce issue-approved file touch scope.
+3. `$ci-baseline` for `lint` + `test` gates.
+4. `$pr-iterate` for review-feedback loops and required PR updates.
 
 ## References
-- `references/dispatch-packet-template.md`
+- `../worktree-manager/SKILL.md`
+- `../pr-scope-guard/SKILL.md`
+- `../ci-baseline/SKILL.md`
+- `../pr-iterate/SKILL.md`

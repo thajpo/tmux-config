@@ -7,8 +7,10 @@
 
 ## Spec Contract (verbatim)
 - status: ready
+- user intent:
 - behavior change:
 - surfaces touched:
+- file touch scope:
 - estimated diff size:
 - acceptance tests:
 - edge cases:
@@ -26,3 +28,4 @@
 
 ## Notes
 - This issue body must remain semantically identical to the approved spec contract.
+- After PR creation, PR thread/review feedback becomes iteration source of truth.

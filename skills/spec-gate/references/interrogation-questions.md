@@ -1,8 +1,10 @@
 # Interrogation Questions
 
 Use only unresolved questions needed to complete the contract:
+- What is the explicit user intent for this change?
 - What behavior changes, and what must remain unchanged?
 - Which files/modules/functions are in scope?
+- What exact files/globs are allowed to be touched?
 - What is estimated diff size (S/M/L) and why?
 - What fail-first test proves the new behavior boundary?
 - What regression tests protect adjacent surfaces?
