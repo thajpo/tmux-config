@@ -37,8 +37,17 @@ Use `references/pr-feedback-sources.md` commands/APIs.
 3. Build blocker/task list from unresolved feedback.
 4. Implement fixes without expanding issue scope.
 5. Run `lint` and `test`.
-6. Push commits.
+6. Commit and push branch updates.
 7. Post `Agent Update` PR comment (required format).
+
+## Execution Defaults
+- Commit + push are expected default steps during `$pr-iterate`.
+- Do not ask for commit/push permission in normal flow.
+- Ask only when blocked by missing scope, missing permissions, destructive action risk, or direct instruction conflict.
+
+## Merge Boundary
+- `$pr-iterate` drives to merge-ready state.
+- Never ask or decide to merge the PR; user/reviewer owns merge decision.
 
 ## Completion Gates
 - Do not declare completion while unresolved blocking feedback remains.

@@ -33,6 +33,7 @@ Use only these in normal flow:
 1. `Use $repo-init` (once per repo)
 2. `Use $lean-flow ...` (planning to `ready`)
 3. `Use $pr-iterate "<spec-id-or-pr#>"` (issue + PR + feedback loop)
+   - `$pr-iterate` performs commit + push updates by default; you review and decide merge.
 
 ## Why
 - Keeps Linux and Mac in sync.
