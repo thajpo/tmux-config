@@ -24,6 +24,7 @@
 - Implementation should not start without a linked GitHub issue.
 - Issue defines approved `file touch scope`; out-of-scope touches require explicit user approval.
 - After PR creation, PR thread/review feedback is the iteration source of truth.
+- `$pr-iterate` must fail closed if any feedback channel fetch fails (comments, mentions, reviews, inline comments, threads).
 
 ## Merge Logging Policy
 - Keep merged-item logging lightweight in planning files; prune merged `Specd` items after PR merge.

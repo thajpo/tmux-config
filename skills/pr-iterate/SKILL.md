@@ -24,12 +24,18 @@ Single entrypoint for execution: consume a ready/issued item or existing PR and 
 
 ## Required Feedback Ingestion
 Read all channels before each implementation round:
+- @mentions / direct agent requests in PR conversation
 - PR conversation comments
 - review summaries/states
 - inline review threads with file/line context
 - unresolved thread state
 
 Use `references/pr-feedback-sources.md` commands/APIs.
+
+## Ingestion Gate (fail-closed)
+- If any required feedback channel cannot be fetched, stop as `blocked`.
+- Do not proceed with implementation on partial feedback visibility.
+- Raise one explicit blocker question asking to retry/fix access.
 
 ## Iteration Loop
 1. Resolve work item to issue + PR (create issue/PR if needed).
@@ -53,6 +59,7 @@ Use `references/pr-feedback-sources.md` commands/APIs.
 - Do not declare completion while unresolved blocking feedback remains.
 - Do not declare completion if `lint` or `test` fails.
 - Do not silently ignore requested changes.
+- Do not declare completion without ingestion evidence for all required channels.
 
 ## Required PR Comment After Every Push
 Follow template in `references/agent-update-template.md`.

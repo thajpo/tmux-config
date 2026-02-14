@@ -2,7 +2,7 @@
 
 Read all of these each round:
 
-1. PR conversation comments
+1. PR conversation comments (includes @mentions)
 ```bash
 gh pr view <pr> --comments
 ```
@@ -34,3 +34,16 @@ query($owner:String!, $repo:String!, $number:Int!) {
   }
 }' -F owner=<owner> -F repo=<repo> -F number=<pr>
 ```
+
+## Required Evidence Record (per iteration)
+- total PR conversation comments fetched
+- total @mentions/direct agent requests found
+- total review summary entries fetched
+- total inline review comments fetched
+- total review threads fetched
+- unresolved thread count
+- timestamp of fetch
+
+## Fail-Closed Rule
+- If any fetch command fails, mark iteration blocked.
+- Do not implement code changes until all channels are fetched successfully.
