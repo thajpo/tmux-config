@@ -6,7 +6,7 @@ description: "Chat-driven clarification gate that turns Brainstormed items into 
 # Spec Gate
 
 ## Goal
-Convert a brainstorm into a concrete spec draft, then validate it is truly ready for implementation.
+Convert a brainstorm into a concrete spec draft, then validate it is truly ready for GitHub issue handoff.
 
 ## Inputs
 - Active planning file (`current.md` or `code_current.md`).
@@ -19,23 +19,29 @@ Convert a brainstorm into a concrete spec draft, then validate it is truly ready
 - User is approver, not form filler.
 
 ## Required Spec Contract Fields
-1. Behavior boundary
-- What changes and what must stay unchanged.
+1. Behavior change
+- Explicit contract delta.
 
 2. Surfaces touched
 - Files/modules/functions expected to change.
 
-3. Non-goals
-- Explicitly excluded surfaces.
+3. Estimated diff size
+- S/M/L with short rationale.
 
-4. Test strategy
+4. Acceptance tests
 - Fail-first test(s).
 - Regression scope.
 
-5. Risk and rollback
+5. Edge cases
+- At least one concrete edge condition.
+
+6. Non-goals
+- Explicitly excluded surfaces.
+
+7. Risk and rollback
 - Main risks and rollback trigger.
 
-6. Overlap analysis
+8. Overlap analysis
 - Shared surfaces with other specs.
 - Merge-vs-split recommendation and decision.
 
@@ -45,6 +51,10 @@ Mark `Specd: ready` only when:
 - no blocking questions remain,
 - overlap decision is recorded,
 - manual approval evidence exists in markdown file.
+
+For issue handoff:
+- GitHub issue body must include the full approved spec contract verbatim.
+- Use the standardized issue template from `references/spec-contract-template.md`.
 
 Manual approval evidence must include:
 - approver identity,

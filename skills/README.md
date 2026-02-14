@@ -14,7 +14,7 @@
 - `Ready` requires explicit approval evidence in markdown (not chat-only approval).
 - Before `Ready`, items in `Brainstormed`/`Specd` can be merged/split/reorganized.
 - After `Ready`, each item maps to exactly one GitHub issue.
-- Implementation should not start without a linked GitHub issue unless explicitly overridden.
+- Implementation should not start without a linked GitHub issue.
 
 ## Merge Logging Policy
 - Keep merged-item logging lightweight in planning files; prune merged `Specd` items after PR merge.

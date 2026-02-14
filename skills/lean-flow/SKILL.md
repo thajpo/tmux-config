@@ -1,15 +1,15 @@
 ---
 name: lean-flow
-description: "Chat-first planning orchestration for Brainstormed -> Specd -> Ready in current.md, with manual markdown approval required before implementation handoff."
+description: "Chat-first planning orchestration for Brainstormed -> Specd -> Ready in current.md, with manual markdown approval required before GitHub issue handoff."
 ---
 
 # Lean Flow
 
 ## Goal
-Keep planning minimal, explicit, and user-controlled while preserving a strict review gate before implementation.
+Keep planning minimal, explicit, and user-controlled while preserving a strict review gate before GitHub issue handoff.
 
 ## Canonical Planning Files
-Choose one mode per repo/session.
+Choose one mode per repo.
 
 1. Single-file mode (default)
 - Use `current.md`.
@@ -17,6 +17,8 @@ Choose one mode per repo/session.
 2. ML split mode
 - Use `code_current.md` for implementation planning.
 - Use `research_current.md` for experiment planning and run history.
+
+Mode is repo-level and fixed. Do not switch modes within the same repo.
 
 Do not create extra planning files unless explicitly requested.
 - One temporary `temp.md` is allowed for large refactors and must be deleted after PR merge/abandonment.
@@ -41,18 +43,48 @@ Do not create extra planning files unless explicitly requested.
 - Promotion is a move, not a copy: once promoted to `Specd`, remove the item from `Brainstormed` in the same edit.
 - Do not keep duplicate entries, placeholders, or "promoted" stubs in `Brainstormed`.
 
-3. Ready (implementation-eligible)
+3. Ready (issue-eligible)
 - Requires manual user approval evidence in markdown file.
 - Chat approval alone is not sufficient.
 - Approval evidence must be present under the item before status becomes `ready`.
-- `ready` means "ready for GitHub issue creation and external implementation pickup."
-- Do not treat `ready` as permission for direct in-session implementation by default.
+- `ready` means "ready for GitHub issue creation."
+- `ready` is not implementation permission.
 
 4. GitHub Issue (execution handoff)
+- Every code change requires exactly one linked GitHub issue.
 - Create exactly one GitHub issue per ready item before implementation starts.
 - Do not batch multiple ready items into one issue.
-- Include spec scope, acceptance criteria, and issue link back to planning item.
-- External implementation agent may pick up open issues and open PRs.
+- Issue body must include the full approved spec contract schema verbatim.
+- Use the standardized issue template in `references/issue-template.md`.
+- Implementation may begin only after issue creation.
+
+5. Current.md Compaction Lifecycle
+- When issue is created for a ready item, remove full spec body from `Specd`.
+- Replace it with a compact tracker entry:
+  - `<id/title> | status: issued | issue: <url-or-#>`
+- Do not track PR state in `current.md`; PR lifecycle lives in GitHub.
+- When PR is merged, remove the tracker entry from `current.md`.
+- Do not remove the item at issue creation without leaving a compact tracker line.
+
+## Spec Contract Schema (required before Ready)
+Each `Specd` item must include all fields below before it can become `ready`:
+- `title`
+- `status` (`draft|in_progress|ready|issued`)
+- `behavior change` (explicit contract delta)
+- `surfaces touched` (files/modules/functions)
+- `estimated diff size` (S/M/L with short rationale)
+- `acceptance tests` (fail-first + regression expectations)
+- `edge cases` (at least one concrete edge condition)
+- `non-goals`
+- `risks and rollback trigger`
+- `overlap analysis` (shared surfaces/conflicts + merge-vs-split decision)
+- `manual approval evidence`:
+  - approver identity (user)
+  - approval date
+  - explicit scope approved
+  - unresolved blockers: none
+
+If any schema field is missing, keep status as `draft`/`in_progress`.
 
 ## Manual Approval Evidence (required)
 Before marking `Specd: ready`, planning file must include:
@@ -61,7 +93,7 @@ Before marking `Specd: ready`, planning file must include:
 - explicit scope approved
 - unresolved blockers: none
 
-If evidence is missing, keep status as draft/in_progress and continue chat refinement.
+If evidence is missing, keep status as `draft`/`in_progress` and continue chat refinement.
 
 ## Overlap-First Rule (required before Ready)
 For each candidate ready item, perform surface-overlap checks against other Specd items:
@@ -74,8 +106,7 @@ Record overlap decision in the spec item.
 ## Ownership Boundaries
 - `lean-flow` owns planning state and file hygiene.
 - `$spec-gate` owns interrogation and readiness checks.
-- Implementation dispatch is manual by default (user opens implementation tab/agent).
-- `$pr-subagent-flow` is optional and only when explicitly requested.
+- Lean-flow does not orchestrate implementation.
 
 ## User-Facing Commands
 - `Use $lean-flow migrate-repo`
@@ -83,8 +114,8 @@ Record overlap decision in the spec item.
 - `Use $lean-flow add belief: ...`
 - `Use $lean-flow interrogate "<title>"`
 - `Use $lean-flow promote "<title>" to Specd`
-- `Use $lean-flow mark "<title>" ready` (only with manual approval evidence in file)
-- `Use $lean-flow prepare handoff "<title>"` (for separate implementation agent)
+- `Use $lean-flow mark "<title>" ready` (only with full schema + manual approval evidence in file)
+- `Use $lean-flow issue "<title>"` (create issue and compact to tracker line)
 - `Use $lean-flow prune merged Specd items`
 
 ## Routing Rules
@@ -94,11 +125,12 @@ Record overlap decision in the spec item.
 
 2. Mark Ready
 - Invoke `$spec-gate` readiness checks.
-- Require overlap record + manual approval evidence in markdown.
+- Require full spec schema + overlap record + manual approval evidence in markdown.
 
-3. Implement
+3. Issue handoff
 - Do not implement from `lean-flow`.
-- Ensure GitHub issue exists for the ready item, then prepare handoff packet for separate implementation session unless user explicitly requests in-session implementation.
+- Ensure GitHub issue exists for the ready item.
+- Ensure issue body contains the full approved spec contract.
 
 4. Escalations
 - Relay decision questions verbatim.
@@ -108,6 +140,10 @@ Record overlap decision in the spec item.
 - Promotion hygiene: `Brainstormed` and `Specd` must be mutually exclusive for a given item title.
 - Never implement from `Brainstormed`.
 - Never mark `ready` from chat-only approval.
-- Never start implementation for a ready item without a linked GitHub issue unless the user explicitly overrides.
+- Never start implementation for a ready item without a linked GitHub issue.
 - Never prune `Specd` items before PR merge.
 - Keep current file(s) compact; remove stale text after merge.
+
+## References
+- `references/issue-template.md`
+- `references/tracker-lifecycle.md`
