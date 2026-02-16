@@ -33,6 +33,8 @@ Convert a single `Specd: ready` item into an executable GitHub issue with no con
 ## Output Contract
 - issue URL/number
 - final issue title/body summary
+- recommended issue branch name
+- recommended worktree path
 - compact tracker line applied to planning file
 - blocker packet (if blocked)
 

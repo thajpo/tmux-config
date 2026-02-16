@@ -8,6 +8,11 @@ description: "Primary execution command. From a ready/issued spec or PR, create/
 ## Goal
 Single entrypoint for execution: consume a ready/issued item or existing PR and drive it to merge-ready.
 
+## Transition Contract (fail-closed)
+- `ready -> issued` must run through `$issue-handoff` first.
+- `issued -> in_pr` must run through `$worktree-manager` first.
+- No code edits are allowed until issue-scoped branch/worktree mapping is created and verified.
+
 ## Input
 - spec id/title in `ready`/`issued` state, or
 - existing PR number.
@@ -40,11 +45,12 @@ Use `references/pr-feedback-sources.md` commands/APIs.
 ## Iteration Loop
 1. Resolve work item to issue + PR (create issue/PR if needed).
 2. Ensure one issue -> one branch -> one worktree mapping.
-3. Build blocker/task list from unresolved feedback.
-4. Implement fixes without expanding issue scope.
-5. Run `lint` and `test`.
-6. Commit and push branch updates.
-7. Post `Agent Update` PR comment (required format).
+3. Verify current branch/worktree maps to the issue; if mismatch, stop as `blocked`.
+4. Build blocker/task list from unresolved feedback.
+5. Implement fixes without expanding issue scope.
+6. Run `lint` and `test`.
+7. Commit and push branch updates.
+8. Post or update `Agent Update` PR status (required format).
 
 ## Execution Defaults
 - Commit + push are expected default steps during `$pr-iterate`.
@@ -61,13 +67,20 @@ Use `references/pr-feedback-sources.md` commands/APIs.
 - Do not silently ignore requested changes.
 - Do not declare completion without ingestion evidence for all required channels.
 
-## Required PR Comment After Every Push
-Follow template in `references/agent-update-template.md`.
+## Required PR Status Update After Every Push
+- Keep one primary `Agent Update` status comment per PR when possible.
+- On first push: create the `Agent Update` comment.
+- On subsequent pushes: edit/update the same comment instead of posting a new long comment.
+- Post a new comment only when there is a major phase change (e.g., blocked -> unblocked, ready-for-review, or scope/risk escalation).
+- Keep updates concise: include counts, decisions, and next actions; never paste full test logs.
+- If tests fail, include only failing test identifiers and short error summary.
+- Follow template in `references/agent-update-template.md`.
 
 ## Guardrails
 - No out-of-scope file touches without explicit user approval.
 - No hidden behavior changes.
 - No test skipping to force pass.
+- Never start implementation while on an unmapped/non-issue branch.
 
 ## References
 - `references/pr-feedback-sources.md`

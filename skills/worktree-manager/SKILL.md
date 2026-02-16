@@ -16,6 +16,7 @@ Enforce isolated execution: one approved issue maps to one branch, one worktree,
 - `1 issue -> 1 branch -> 1 worktree -> 1 PR`
 - no shared worktree across multiple active issues
 - no mixed-scope commits in a single worktree
+- no implementation before mapping verification succeeds
 
 ## Naming
 - worktree directory should include issue/spec id
@@ -24,8 +25,9 @@ Enforce isolated execution: one approved issue maps to one branch, one worktree,
 
 ## Lifecycle
 1. Create isolated worktree from default branch.
-2. Implement and open PR from that branch only.
-3. After merge, remove worktree and delete local branch.
+2. Verify mapping (`issue`, `branch`, `worktree`) and verify current checkout is the mapped branch.
+3. Implement and open PR from that branch only.
+4. After merge, remove worktree and delete local branch.
 
 Use command patterns in `references/commands.md`.
 
@@ -33,6 +35,7 @@ Use command patterns in `references/commands.md`.
 - Never reuse an active worktree for a different issue.
 - If urgent hotfix is needed, create a separate worktree.
 - Cleanup happens only after merge/abandonment is confirmed.
+- If current branch/worktree is not mapped to the issue, stop as `blocked` and do not edit files.
 
 ## References
 - `references/commands.md`

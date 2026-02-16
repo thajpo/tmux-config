@@ -103,10 +103,16 @@ After issue creation: Minimal tracking in current.md, full spec lives in GitHub 
 - User-facing execution handoff is `$pr-iterate`.
 - `$pr-iterate` handles issue creation/compaction, worktree lifecycle, scope guard, and PR feedback loop via internal helpers.
 
+## Execution State Machine
+- `ready -> issued` via `$issue-handoff`.
+- `issued -> in_pr` via `$pr-iterate` (which must run `$worktree-manager` first).
+- `in_pr -> merge_ready` via `$pr-iterate` feedback/CI iteration loop.
+
 ## Guardrails
 - Never implement from `Brainstormed`.
 - Never mark `ready` without GitHub issue in OS format + approval evidence.
 - Never implement without a linked issue.
+- Never implement in `issued` state until issue-scoped branch/worktree setup is complete.
 - Never batch multiple ready items into one issue.
 - Never touch files outside scope without explicit user approval.
 - Never prune tracker lines before merge.
