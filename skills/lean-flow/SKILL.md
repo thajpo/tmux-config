@@ -42,6 +42,19 @@ Take inspiration from top open-source projects (vLLM, transformers, ray). Issues
 - Markdown approval evidence in issue body (approver + date + scope).
 - Execution starts by invoking `$pr-iterate` on the ready issue.
 
+## Order of Operations (mandatory)
+1. Clarify in chat and draft/update spec in `current.md` while item is pre-issue.
+2. Promote to GitHub issue.
+3. Immediately compact `current.md` spec body to one issued tracker line.
+4. From that point on, all contract updates happen in the GitHub issue body first.
+5. Keep `current.md` as a minimal tracker only (`issued` status + issue link).
+
+When user says `$lean-flow` and an item already has a GitHub issue:
+- Treat the issue body as the active contract.
+- Update the issue body first.
+- Only mirror status/tracker changes in `current.md`.
+- Do not keep diverging duplicate spec text in `current.md`.
+
 ## GitHub Issue Format (OS Best Practices)
 
 When creating issues, follow this format inspired by top OS projects:
@@ -89,6 +102,9 @@ Track in current.md:
 - `summary`: 1-2 sentence description
 - `blocking_decisions`: (if any)
 
+Compact format after issue creation (preferred):
+- `<title> | status: issued | issue: #N`
+
 Before issue creation: Use natural conversation + full spec draft in GitHub issue format.
 After issue creation: Minimal tracking in current.md, full spec lives in GitHub issue.
 
@@ -97,6 +113,9 @@ After issue creation: Minimal tracking in current.md, full spec lives in GitHub 
 - Post-issue: GitHub issue body is implementation contract source of truth.
 - Post-PR: PR thread/review feedback is iteration source of truth.
 - If conflict exists, latest explicit user instruction in PR context wins.
+
+Operational rule:
+- If `current.md` and issue conflict for an issued item, update/resolve in issue first, then sync tracker in `current.md`.
 
 ## Routing
 - Use `$spec-gate` for interrogation/readiness checks.
